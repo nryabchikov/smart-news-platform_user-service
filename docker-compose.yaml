@@ -1,0 +1,27 @@
+services:
+  user-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    depends_on:
+      - db-user
+    restart: always
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://db-user:5432/user-service_db'
+
+  db-user:
+    image: postgres:13
+    ports:
+      - "5435:5432"
+    environment:
+      POSTGRES_USER: nikitaryabchikov
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: user-service_db
+    volumes:
+      - user-db-data:/var/lib/postgresql/data
+
+volumes:
+  user-db-data:
