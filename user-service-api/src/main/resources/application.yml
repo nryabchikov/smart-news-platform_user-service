@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    active: dev
+cache:
+  type: lfu
+  max-size: 5
+
+server:
+  port: 8083
